@@ -6,15 +6,16 @@ on:
       f/AddCI
 
 jobs:
-  build:
-
+  test_react:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Setup Git Environment
+      uses: actions/checkout@v1
+    - name: Setup Node Environment
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install dependencies
+      run: cd webapp && npm install
+    - name: Test web app
+      run: npm test
